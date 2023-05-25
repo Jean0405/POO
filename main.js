@@ -4,6 +4,30 @@ class Persona {
     this.edad = edad;
     this.sexo = sexo;
   }
+  /**
+   * Creación de los GETTERS
+   */
+  get getNombre() {
+    return this.nombre;
+  }
+  get getEdad() {
+    return this.edad;
+  }
+  get getSexo() {
+    return this.sexo;
+  }
+  /**
+   * Creación de los SETTERS
+   */
+  set setNombre(newNombre) {
+    this.nombre = newNombre;
+  }
+  set setEdad(newEdad) {
+    this.edad = newEdad;
+  }
+  set setSexo(newSexo) {
+    this.sexo = newSexo;
+  }
 
   saludar() {
     return `Hola, mi nombre es ${this.nombre}, tengo ${this.edad} años y sexo ${this.sexo}`;
@@ -26,8 +50,9 @@ class Persona {
   }
 }
 
-const persona1 = new Persona({});
-
+/**
+ * Obtención de los datos del formulario para ser instanciados a la clase
+ */
 const FORM = document.querySelector("#form-persona");
 FORM.addEventListener("submit", (e) => {
   e.preventDefault();
