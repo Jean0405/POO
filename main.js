@@ -32,6 +32,14 @@ class Persona {
   saludar() {
     return `Mi nombre es ${this.nombre}`;
   }
+
+  static esMayorDeEdad(ed) {
+    if (ed >= 18) {
+      return `Es mayor de edad`;
+    } else {
+      return `Es menor de edad`;
+    }
+  }
 }
 
 class Estudiante extends Persona {
@@ -55,11 +63,13 @@ FORM.addEventListener("submit", (e) => {
   let data = Object.fromEntries(new FormData(e.target));
 
   const persona1 = new Persona(data);
-  persona1.saludar();
   const estudiante1 = new Estudiante(data);
+
   mensajeP.innerHTML = `
   <p class="text-light fst-italic fw-bold">${estudiante1.saludar()}</p>
   <p class="text-light fst-italic">${estudiante1.estudiar()}</p>
+  <p class="text-light fst-italic">${Persona.esMayorDeEdad(
+    persona1.getEdad
+  )}</p>
   `;
-  console.log(estudiante1.estudiar());
 });
