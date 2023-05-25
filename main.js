@@ -30,33 +30,36 @@ class Persona {
   }
 
   saludar() {
-    return `Hola, mi nombre es ${this.nombre}, tengo ${this.edad} años y sexo ${this.sexo}`;
+    return `Mi nombre es ${this.nombre}`;
+  }
+}
+
+class Estudiante extends Persona {
+  constructor({ nombre, edad, sexo, carrera }) {
+    super({ nombre, edad, sexo });
+    this.carrera = carrera;
   }
 
-  renderPersona() {
-    const saludoContainer = document.querySelector(".saludo-container");
-    let template = document.createElement("div");
-    template.setAttribute(
-      "class",
-      "saludo col-10 d-flex flex-column justify-content-center align-items-center mt-2 p-3"
-    );
-    template.innerHTML = `
-        <p class="fw-bold text-uppercase text-light">${this.nombre}</p>
-        <p class="text-light fst-italic" id>${this.edad} años</p>
-        <p class="text-light fst-italic">${this.sexo}</p>
-    `;
-    document.querySelector(".title-saludo").innerHTML = "SALUDITO";
-    saludoContainer.appendChild(template);
+  estudiar() {
+    return `Mi carrera cursada es ${this.carrera}`;
   }
 }
 
 /**
  * Obtención de los datos del formulario para ser instanciados a la clase
  */
+const mensajeP = document.querySelector("#mensaje");
 const FORM = document.querySelector("#form-persona");
 FORM.addEventListener("submit", (e) => {
   e.preventDefault();
   let data = Object.fromEntries(new FormData(e.target));
+
   const persona1 = new Persona(data);
-  persona1.renderPersona();
+  persona1.saludar();
+  const estudiante1 = new Estudiante(data);
+  mensajeP.innerHTML = `
+  <p class="text-light fst-italic fw-bold">${estudiante1.saludar()}</p>
+  <p class="text-light fst-italic">${estudiante1.estudiar()}</p>
+  `;
+  console.log(estudiante1.estudiar());
 });
