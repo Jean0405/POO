@@ -1,0 +1,25 @@
+
+form{
+    border-radius: 8px;
+    padding: 2rem;
+    background-color: black;
+}
+input{
+    border: none;
+    outline: none;
+    background: rgba(206, 206, 206, 0.286);
+    color: white;
+}
+input::placeholder{
+    color: white;
+}
+select{
+    background: rgb(255, 255, 255);
+    border: none;
+    outline: none;
+}
+
+.saludo{
+    border-radius: 8px;
+    background-color: rgba(165, 165, 165, 0.3);
+}
