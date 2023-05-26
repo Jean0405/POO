@@ -108,6 +108,9 @@ class Perro extends Animal {
   }
 }
 
+/**
+ * Obtención de los datos del formulario para ser instanciados a la clase
+ */
 const mensajeP2 = document.querySelector("#mensaje2");
 const FORM_ANIMAL = document.querySelector("#form-animal");
 FORM_ANIMAL.addEventListener("submit", (e) => {
@@ -127,4 +130,85 @@ FORM_ANIMAL.addEventListener("submit", (e) => {
   `;
   document.querySelector(".saludo-containerAnimal").classList.add("show");
   FORM_ANIMAL.reset();
+});
+
+class Figura {
+  constructor({ color, area }) {
+    this.color = color;
+    this.area = area;
+  }
+
+  get getColor() {
+    return this.color;
+  }
+
+  calcularArea() {
+    return this.area;
+  }
+}
+
+class Circulo extends Figura {
+  constructor({ color, area, radio }) {
+    super({ color, area });
+    this.radio = radio;
+  }
+
+  get getRadio() {
+    return this.radio;
+  }
+
+  calcularArea() {
+    return Math.trunc(Math.pow(this.radio, 2) * Math.PI);
+  }
+}
+
+class Rectangulo extends Figura {
+  constructor({ color, largo, ancho }) {
+    super({ color });
+    this.largo = largo;
+    this.ancho = ancho;
+  }
+  calcularArea() {
+    return Number(this.largo) * Number(this.ancho);
+  }
+}
+
+const mensajeP3 = document.querySelector("#mensaje3");
+const FORM_FIGURA = document.querySelector("#form-figuraCirculo");
+FORM_FIGURA.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let data = Object.fromEntries(new FormData(e.target));
+  const { color, area } = data;
+
+  const figura1 = new Figura({ color, area });
+  const circulo1 = new Circulo(data);
+
+  mensajeP3.innerHTML = `
+  <p class="text-light fst-italic fw-bold">Circulo color ${figura1.getColor}</p>
+  <p class="text-light fst-italic">Área de la figura <strong>${figura1.calcularArea()}</strong> M²</p>
+  <p class="text-light fst-italic">Área del circulo <strong>${circulo1.calcularArea()}</strong> M²</p>
+  `;
+  document
+    .querySelector(".saludo-containerFigura")
+    .classList.remove(".saludo-container");
+  document.querySelector(".saludo-containerFigura").classList.add("show");
+  FORM_FIGURA.reset();
+});
+
+const mensajeP4 = document.querySelector("#mensaje4");
+const FORM_RECTANGULO = document.querySelector("#form-figuraRectangulo");
+FORM_RECTANGULO.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let data = Object.fromEntries(new FormData(e.target));
+
+  const rectangulo1 = new Rectangulo(data);
+
+  mensajeP4.innerHTML = `
+  <p class="text-light fst-italic"> El área del rectangulo <strong>${rectangulo1.calcularArea()}</strong> M²</p>
+  `;
+  document
+    .querySelector(".saludo-containerRectangulo")
+    .classList.remove(".saludo-container");
+  document.querySelector(".saludo-containerRectangulo").classList.add("show");
+  FORM_RECTANGULO.reset();
 });
