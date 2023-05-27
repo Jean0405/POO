@@ -216,9 +216,9 @@ FORM_RECTANGULO.addEventListener("submit", (e) => {
 
 // PUNTO 4 CLASE VEHICULO
 class Vehiculo {
-  contructor({ marca, modelo, velocidad }) {
+  constructor({ marca, modelo, velocidad }) {
     this.marca = marca;
-    this.modela = modelo;
+    this.modelo = modelo;
     this.velocidad = velocidad;
   }
 
@@ -257,10 +257,9 @@ const FORM_VEHICULO = document.querySelector("#form-vehiculo");
 FORM_VEHICULO.addEventListener("submit", (e) => {
   e.preventDefault();
   let data = Object.fromEntries(new FormData(e.target));
-  const { velocidad, combustible } = data;
 
   const vehiculo1 = new Vehiculo(data);
-  const coche1 = new coche({ velocidad, combustible });
+  const coche1 = new coche(data);
 
   mensajeP5.innerHTML = `
   <p class="text-light fst-italic"> El área del rectangulo <strong>${vehiculo1.acelerar()}  km/h</strong></p>
