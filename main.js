@@ -132,6 +132,7 @@ FORM_ANIMAL.addEventListener("submit", (e) => {
   FORM_ANIMAL.reset();
 });
 
+// PUNTO 3 CLASE FIGURA
 class Figura {
   constructor({ color, area }) {
     this.color = color;
@@ -211,4 +212,72 @@ FORM_RECTANGULO.addEventListener("submit", (e) => {
     .classList.remove(".saludo-container");
   document.querySelector(".saludo-containerRectangulo").classList.add("show");
   FORM_RECTANGULO.reset();
+});
+
+// PUNTO 4 CLASE VEHICULO
+class Vehiculo {
+  contructor({ marca, modelo, velocidad }) {
+    this.marca = marca;
+    this.modela = modelo;
+    this.velocidad = velocidad;
+  }
+
+  get getMarca() {
+    return this.marca;
+  }
+  get getModelo() {
+    return this.modelo;
+  }
+  get getVelocidad() {
+    return this.velocidad;
+  }
+
+  acelerar() {
+    return Number(this.velocidad) + 10;
+  }
+
+  static convertirKmHEnMph(velocidad) {
+    return Number(velocidad) / 1.60934;
+  }
+}
+
+class coche extends Vehiculo {
+  constructor({ velocidad, combustible }) {
+    super({ velocidad });
+    this.combustible = combustible;
+  }
+
+  acelerar() {
+    return Number(this.velocidad) + 20;
+  }
+}
+
+const mensajeP5 = document.querySelector("#mensaje5");
+const FORM_VEHICULO = document.querySelector("#form-vehiculo");
+FORM_VEHICULO.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let data = Object.fromEntries(new FormData(e.target));
+  const { velocidad, combustible } = data;
+
+  const vehiculo1 = new Vehiculo(data);
+  const coche1 = new coche({ velocidad, combustible });
+
+  mensajeP4.innerHTML = `
+  <p class="text-light fst-italic"> El área del rectangulo <strong>${vehiculo1.acelerar()}  km/h</strong></p>
+  <p class="text-light fst-italic"> El área del rectangulo <strong>${coche1.acelerar()} km/h</strong></p>
+  <p class="text-light fst-italic"> El área del rectangulo <strong>${Vehiculo.convertirKmHEnMph(
+    coche1.getVelocidad
+  )} mph</strong></p>
+  `;
+
+  console.log(
+    vehiculo1.acelerar(),
+    coche1.acelerar(),
+    Vehiculo.convertirKmHEnMph(coche1.getVelocidad)
+  );
+  document
+    .querySelector(".saludo-containerVehiculo")
+    .classList.remove(".saludo-container");
+  document.querySelector(".saludo-containerVehiculo").classList.add("show");
+  // FORM_VEHICULO.reset();
 });
