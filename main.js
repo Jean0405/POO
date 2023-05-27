@@ -262,7 +262,7 @@ FORM_VEHICULO.addEventListener("submit", (e) => {
   const vehiculo1 = new Vehiculo(data);
   const coche1 = new coche({ velocidad, combustible });
 
-  mensajeP4.innerHTML = `
+  mensajeP5.innerHTML = `
   <p class="text-light fst-italic"> El área del rectangulo <strong>${vehiculo1.acelerar()}  km/h</strong></p>
   <p class="text-light fst-italic"> El área del rectangulo <strong>${coche1.acelerar()} km/h</strong></p>
   <p class="text-light fst-italic"> El área del rectangulo <strong>${Vehiculo.convertirKmHEnMph(
@@ -280,4 +280,55 @@ FORM_VEHICULO.addEventListener("submit", (e) => {
     .classList.remove(".saludo-container");
   document.querySelector(".saludo-containerVehiculo").classList.add("show");
   // FORM_VEHICULO.reset();
+});
+
+// PUNTO 5 CLASE EMPLEADO
+class Empleado {
+  static ID = 0;
+  constructor({ nombre, edad, sueldo }) {
+    this.nombre = nombre;
+    this.edad = edad;
+    this.sueldo = sueldo;
+    this.ID = Empleado.generarIdEmpleado();
+  }
+
+  calcularSalarioAnual() {
+    return Number(this.sueldo) * 12;
+  }
+
+  static generarIdEmpleado() {
+    return Empleado.ID++;
+  }
+}
+
+class Gerente extends Empleado {
+  constructor({ nombre, edad, sueldo, departamento }) {
+    super({ nombre, edad, sueldo });
+    this.departamento = departamento;
+  }
+
+  calcularSalarioAnual() {
+    return (Number(this.sueldo) + Number(this.sueldo) * 0.1) * 12;
+  }
+}
+
+const mensajeP6 = document.querySelector("#mensaje6");
+const FORM_EMPLEADO = document.querySelector("#form-empleado");
+FORM_EMPLEADO.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let data = Object.fromEntries(new FormData(e.target));
+
+  const empleado1 = new Empleado(data);
+  const gerente1 = new Gerente(data);
+
+  mensajeP6.innerHTML = `
+  <p class="text-light fst-italic"> El salario anual del empleado: <strong>${empleado1.calcularSalarioAnual()} COP</strong></p>
+  <p class="text-light fst-italic"> El salario anual del gerente: <strong>${gerente1.calcularSalarioAnual()} COP</strong></p>
+  <p class="text-light fst-italic"> ID: <strong>${Empleado.generarIdEmpleado()}</strong></p>
+  `;
+
+  document
+    .querySelector(".saludo-containerEmpleado")
+    .classList.remove(".saludo-container");
+  document.querySelector(".saludo-containerEmpleado").classList.add("show");
 });
